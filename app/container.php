@@ -2,14 +2,15 @@
 
 use Emix\Asset\AssetInterface;
 use Emix\Asset\TwigAssetExtension;
+use Psr\Container\ContainerInterface;
 
 $container = $app->getContainer();
 
-$container[AssetInterface::class] = function ($container) {
+$container[AssetInterface::class] = function (ContainerInterface $container) {
   return new \Emix\Asset\Asset($container);
 };
 
-$container[TwigAssetExtension::class] = function ($container) {
+$container[TwigAssetExtension::class] = function (ContainerInterface $container) {
   return new \Emix\Asset\TwigAssetExtension($container[\Emix\Asset\AssetInterface::class]);
 };
 
