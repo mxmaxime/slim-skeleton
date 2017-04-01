@@ -25,7 +25,8 @@ class ViewServiceProvider
 
   public function run ()
   {
-    $this->container['view'] = function (ContainerInterface $container) {
+    $this->container['view'] = function (ContainerInterface $container): Twig
+    {
       $dir = dirname(dirname(__DIR__));
 
       $view = new Twig("$dir/resources/views", [
