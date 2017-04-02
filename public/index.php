@@ -1,16 +1,15 @@
 <?php
 
 require('../vendor/autoload.php');
-require('./helpers.php');
+require('../Emix/helpers.php');
 
 // Load the configuration
 $dotenv = new \Dotenv\Dotenv(dirname(__DIR__));
 $dotenv->load();
 
-
 $config = [
     'settings' => [
-        'displayErrorDetails' => true
+        'displayErrorDetails' => config('app.env') === 'dev',
     ]
 ];
 
