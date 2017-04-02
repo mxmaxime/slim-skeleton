@@ -25,22 +25,22 @@ class ViewServiceProvider
 
   public function run ()
   {
-    $this->container['view'] = function (ContainerInterface $container): Twig
-    {
-      $dir = dirname(dirname(__DIR__));
+    $this->container['view'] = function (ContainerInterface $container): Twig {
+      $env = config('app.env');
 
-      $view = new Twig("$dir/resources/views", [
-        'debug' => $_SERVER['ENV'] === 'dev',
-        'cache' => $_SERVER['ENV'] == 'prod' ? '/path/to/cache' : false
+      $view = new Twig(config('view.path'), [
+        'debug' => $env === 'dev',
+        'cache' => $env == 'prod' ? config('view.compiled') : false
       ]);
 
-      if ($_SERVER['ENV'] === 'dev') {
+      if ($env === 'dev') {
         $view->addExtension(new \Twig_Extension_Debug());
       }
 
       // Instantiate and add Slim specific extension
       $basePath = rtrim(str_ireplace('index.php', '', $container['request']->getUri()->getBasePath()), '/');
       $view->addExtension(new TwigExtension($container['router'], $basePath));
+
 
       $twigEnv = $view->getEnvironment();
 
