@@ -8,12 +8,14 @@ use Emix\Support\PathHelpers;
 use Emix\Support\ServiceProvider;
 use Psr\Container\ContainerInterface;
 
-class ConfigServiceProviderr
+class ConfigServiceProvider
 {
   /**
    * @var PathHelpers
    */
   private $path;
+
+  private static $_instance;
 
   public function __construct(PathHelpers $path)
   {
@@ -22,15 +24,7 @@ class ConfigServiceProviderr
 
   public function boot (): ConfigRepository
   {
-    $configPath = config_path();
-    $arr = [];
 
-    foreach (glob("${configPath}/*.config.php") as $path) {
-      $filename = basename($path, '.config.php');
-      $arr[basename($filename)] = include($path);
-    }
-
-    return ConfigRepository::getInstance($arr);
   }
 
 //  public function register ()

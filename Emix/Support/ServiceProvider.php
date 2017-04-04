@@ -1,15 +1,25 @@
 <?php
-/**
- * Created by IntelliJ IDEA.
- * User: emix
- * Date: 04/04/17
- * Time: 21:02
- */
 
 namespace Emix\Support;
 
 
-class ServiceProvider
-{
+use Slim\App;
 
+abstract class ServiceProvider
+{
+  /**
+   * @var App
+   */
+  private $app;
+
+  /**
+   * @var \Psr\Container\ContainerInterface
+   */
+  protected $container;
+
+  public function __construct (App $app)
+  {
+    $this->app = $app;
+    $this->container = $app->getContainer();
+  }
 }

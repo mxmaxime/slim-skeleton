@@ -8,20 +8,14 @@ use Emix\Asset\TwigAssetExtension;
 // use Emix\Twig\TwigMarkdownExtension;
 // use Emix\Twig\TwigAuthExtension;
 
+use Emix\Support\ServiceProvider;
 use Interop\Container\ContainerInterface;
 use Slim\Views\Twig;
 use Slim\Views\TwigExtension;
 use Twig_SimpleFunction;
 
-class ViewServiceProvider
+class ViewServiceProvider extends ServiceProvider
 {
-
-  private $container;
-
-  public function __construct (ContainerInterface $container)
-  {
-    $this->container = $container;
-  }
 
   public function run ()
   {
