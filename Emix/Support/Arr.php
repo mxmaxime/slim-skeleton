@@ -59,7 +59,8 @@ class Arr
       if (static::accessible($array) && static::exists($array, $segment)) {
         $array = $array[$segment];
       } else {
-        return value($default);
+//        return value($default);
+        return $default;
       }
     }
 
