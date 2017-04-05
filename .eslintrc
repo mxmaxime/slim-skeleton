@@ -1,0 +1,25 @@
+{
+  "root": true,
+  "parser": "babel-eslint", // Use the babel-parser, very important without eslint = boom crash
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaVersion": 8 // Pour utiliser le async/await
+  },
+  "env": {
+    "browser": true // Include the window, document variables.. http://stackoverflow.com/a/32481806
+  },
+  "extends": "airbnb-base",
+  "plugins": [ "html" ],
+  "rules": {
+    "arrow-parens": 0,
+    "generator-star-spacing": 0,
+    "no-debugger": 0,
+    "space-before-function-paren": 0, 
+    "no-prototype-builtins": 0,
+    "no-multi-assign": 0,
+    "max-len": 0,
+    "prefer-arrow-callback": 0, // addEventListener on a parfois bsn d'une fonction et pas d'une arrow callback
+    "func-names": 0, // je trouve ça débile
+    "padded-blocks": 0 // Je préfère aérer mon code!
+  }
+}
