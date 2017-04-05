@@ -12,7 +12,6 @@ class PathHelpers
 
   public function __construct()
   {
-    var_dump('Initialisation de PathHelpers');
     $paths = [];
 
     $root = realpath('../');
