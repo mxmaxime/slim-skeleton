@@ -15,5 +15,5 @@ $container[TwigAssetExtension::class] = function (ContainerInterface $container)
   return new \Emix\Asset\TwigAssetExtension($container[\Emix\Asset\AssetInterface::class]);
 };
 
-$view = new \App\Providers\ViewServiceProvider($container);
+$view = new \App\Providers\ViewServiceProvider($app);
 $view->run();
