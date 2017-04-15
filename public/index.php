@@ -7,9 +7,11 @@ require('../Emix/helpers.php');
 $dotenv = new \Dotenv\Dotenv(dirname(__DIR__));
 $dotenv->load();
 
+$configRepository = \Emix\Config\ConfigRepository::getInstance();
+
 $config = [
     'settings' => [
-        'displayErrorDetails' => config('app.env') === 'dev',
+        'displayErrorDetails' => $configRepository->get('app.env') === 'dev',
     ]
 ];
 
