@@ -23,3 +23,13 @@ if (!function_exists('storage_path')) {
   }
 
 }
+
+if (!function_exists('public_path')) {
+
+  function public_path (String $path = ''): String {
+    return PathHelpers::getInstance()->public . '/' . $path;
+  }
+
+}
+
+
