@@ -2,6 +2,8 @@
 
 namespace Emix\Asset;
 
+use Psr\Container\ContainerInterface;
+
 class Asset implements AssetInterface {
 
   public $json = null;
@@ -9,9 +11,10 @@ class Asset implements AssetInterface {
   private $files;
   private $useWebpack;
 
-  public function __construct () {
+  public function __construct (ContainerInterface $container) {
+    $config = $container->get('config');
 
-    $this->useWebpack = $_SERVER['ASSETS_WEBPACK'] === 'true'; // Convert string to boolean because $_SERVER['ASSETS_WEBPACK'] = string : 'true' | false
+    $this->useWebpack = $config->get('asset.use_webpack') === true;
 
     if (!$this->isLocal() || $this->useWebpack === false) {
       $assetsInformations = json_decode(file_get_contents(public_path() . '/assets/assets.json'));
