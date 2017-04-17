@@ -20,11 +20,12 @@ class ViewServiceProvider extends ServiceProvider
   public function run ()
   {
     $this->container['view'] = function (ContainerInterface $container): Twig {
-      $env = config('app.env');
+      $config = $container->get('config');
+      $env = $config->get('app.env');
 
-      $view = new Twig(config('view.path'), [
+      $view = new Twig($config->get('view.path'), [
         'debug' => $env === 'dev',
-        'cache' => $env == 'prod' ? config('view.compiled') : false
+        'cache' => $env == 'prod' ? $config->get('view.compiled') : false
       ]);
 
       if ($env === 'dev') {
