@@ -1,11 +1,13 @@
 <?php
 
 require('../vendor/autoload.php');
-require('../Emix/helpers.php');
 
 // Load the configuration
 $dotenv = new \Dotenv\Dotenv(dirname(__DIR__));
 $dotenv->load();
+
+$pathHelpers = \Emix\Support\PathHelpers::getInstance();
+require('../Emix/helpers.php');
 
 $configRepository = \Emix\Config\ConfigRepository::getInstance();
 
@@ -20,6 +22,7 @@ $app = new \Slim\App($config);
 
 // Mount object into the container
 require('../app/container.php');
+
 
 // Mount the routes
 require('../routes/web.php');
