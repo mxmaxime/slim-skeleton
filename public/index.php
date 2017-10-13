@@ -1,30 +1,27 @@
 <?php
-
 require('../vendor/autoload.php');
+
+use Psr7Middlewares\Middleware\TrailingSlash;
 
 // Load the configuration
 $dotenv = new \Dotenv\Dotenv(dirname(__DIR__));
 $dotenv->load();
 
 $pathHelpers = \Emix\Support\PathHelpers::getInstance();
-require('../Emix/helpers.php');
+require('../app/helpers/helpers.php');
+$configRepository = \Emix\Config\ConfigRepository::getInstance($pathHelpers->config);
 
-$configRepository = \Emix\Config\ConfigRepository::getInstance();
 
-$config = [
-    'settings' => [
-        'displayErrorDetails' => $configRepository->get('app.env') === 'dev',
-    ]
-];
+$slimConfig = $configRepository->get('slim');
+if (!$slimConfig) {
+  throw new Exception("The slimg config is empty !");
+}
 
-// Create the slim application
-$app = new \Slim\App($config);
+$app = new \Slim\App($slimConfig);
 
-// Mount object into the container
 require('../app/container.php');
 
-
-// Mount the routes
-require('../routes/web.php');
+$app->add(new TrailingSlash(false)); // true adds the trailing slash (false removes it)
+require_once '../app/Http/routes.php';
 
 $app->run();

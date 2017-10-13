@@ -7,9 +7,10 @@ use Psr\Container\ContainerInterface;
 
 $container = $app->getContainer();
 
-$container['config'] = function (ContainerInterface $container) use ($configRepository) {
+$container['config'] = function () use ($configRepository) {
   return $configRepository;
 };
+
 
 $container[\Emix\Support\PathHelpers::class] = function (ContainerInterface $container) use ($pathHelpers) {
   return $pathHelpers;
