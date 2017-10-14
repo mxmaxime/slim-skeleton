@@ -1,6 +1,5 @@
 <?php
-namespace Emix\Twig;
-
+namespace Emix\Twig\Extensions;
 
 use Emix\markdown\MarkdownInterface;
 use Twig_Extension;

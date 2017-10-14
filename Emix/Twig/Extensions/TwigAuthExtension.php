@@ -1,5 +1,5 @@
 <?php
-namespace Emix\Twig;
+namespace Emix\Twig\Extensions;
 
 use Emix\Authenticated\Authenticated;
 use Twig_Extension;

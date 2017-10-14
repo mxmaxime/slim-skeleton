@@ -2,24 +2,17 @@
 
 namespace Emix\Support;
 
+use Interop\Container\ContainerInterface;
 
-use Slim\App;
-
-abstract class ServiceProvider
+class ServiceProvider
 {
   /**
-   * @var App
-   */
-  private $app;
-
-  /**
-   * @var \Psr\Container\ContainerInterface
+   * @var ContainerInterface
    */
   protected $container;
 
-  public function __construct (App $app)
+  public function __construct(ContainerInterface $container)
   {
-    $this->app = $app;
-    $this->container = $app->getContainer();
+    $this->container = $container;
   }
 }

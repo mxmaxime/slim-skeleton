@@ -1,5 +1,5 @@
 <?php
-namespace Emix\Twig;
+namespace Emix\Twig\Extensions;
 
 use Emix\CallApi\CallApi;
 use Twig_Extension;

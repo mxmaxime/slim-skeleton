@@ -1,8 +1,8 @@
 <?php
 
-use Emix\Asset\AssetInterface;
+use Emix\Asset\Asset;
 use Emix\Asset\TwigAssetExtension;
-use Emix\Config\ConfigRepository;
+use Emix\Twig\Slim\TwigServiceProvider;
 use Psr\Container\ContainerInterface;
 
 $container = $app->getContainer();
@@ -11,18 +11,24 @@ $container['config'] = function () use ($configRepository) {
   return $configRepository;
 };
 
-
-$container[\Emix\Support\PathHelpers::class] = function (ContainerInterface $container) use ($pathHelpers) {
+$container[\Emix\Support\PathHelpers::class] = function () use ($pathHelpers) {
   return $pathHelpers;
 };
 
-$container[AssetInterface::class] = function (ContainerInterface $container) {
-  return new \Emix\Asset\Asset($container);
+$container[Asset::class] = function (ContainerInterface $container) {
+  $useWebpack = $_SERVER['ASSETS_WEBPACK'] ?? false;
+
+  // In dev
+  if ($useWebpack) {
+    return new Asset();
+  }
+
+  return new Asset();
 };
 
 $container[TwigAssetExtension::class] = function (ContainerInterface $container) {
-  return new \Emix\Asset\TwigAssetExtension($container[\Emix\Asset\AssetInterface::class]);
+  return new \Emix\Asset\TwigAssetExtension($container[Asset::class]);
 };
 
-$view = new \App\Providers\ViewServiceProvider($app);
+$view = new TwigServiceProvider($container);
 $view->run();
